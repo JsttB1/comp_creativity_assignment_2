@@ -1,0 +1,22 @@
+Use case: illustration-story
+Asset type: an original illustration for a poetry anthology; one of a coherent three-image series called Small Weather.
+Primary request: interpret the following computer-generated poem through a single quiet scene. The poem is the semantic reference only; do not render any of its words in the image.
+
+Frost / gate
+
+Frost practises its careful handwriting beneath the apple branches.
+The crooked gate shelters a small unfinished song.
+
+A branch taps once against the greenhouse.
+The soil keeps all its letters underground.
+
+I thought that leaving would be louder.
+But the light returns without an explanation.
+
+The gate has learned to wait.
+Under the path, a root goes on deciding.
+
+Scene and subject: A crooked wooden garden gate beneath bare apple branches on a frosty morning. A modest greenhouse stands beyond the gate; one branch touches its glass. A narrow path leads through the gate. Frost on grass and twigs resembles delicate strokes, but never actual letters. Show a subtle hint of dark soil and living roots at the edge of the path, with a thin sliver of warm returning light. Patience and hidden growth are the emotional centre.
+Style and medium: restrained editorial illustration combining soft gouache washes and fine drypoint-like ink marks on warm ivory paper. Subtle paper grain, simplified but specific forms, sophisticated literary-journal atmosphere. Not photographic or cartoonish. A limited palette of charcoal, muted slate blue, weathered teal and tiny touches of ochre, with generous pale atmosphere. Use this same medium and palette for the series.
+Composition: a wide landscape image, approximately 3:2, composed as a complete artwork with no frame. Put visual attention on the small object named in the poem and allow breathing room around it. Poem text will be typeset separately below the artwork.
+Constraints: no typography, letters, numbers, title, captions, logos, signatures or watermarks; no people or human faces; do not make objects into characters with eyes or mouths. Preserve the poem's quiet ambiguity and avoid a crowded scene.

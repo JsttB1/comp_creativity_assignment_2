@@ -1,0 +1,80 @@
+[
+  {
+    "title": "Rain / ticket",
+    "theme": "rain",
+    "poem_seed": 42,
+    "candidate_budget": 48,
+    "selected_candidate": 28,
+    "generator_version": "1.0",
+    "grammar_sha256": "bc6668a2bb04dc482abe80fba87d87319f187e2a6368c44e15b21768ebcf15b5",
+    "poem_text_sha256": "5d9e16a2f4591216d33148bda14b590a0d67aedc218a1500b2121f4bc90f3d85",
+    "poem_file": "texts/01_rain.txt",
+    "image_file": "images/01_rain.png",
+    "image_sha256": "5b0491227c0335e896d5c5fa8979f4fd0ac79223faace8d16c8af021314c3cb4",
+    "dimensions": [
+      1536,
+      1024
+    ],
+    "prompt_file": "prompts/01_rain.txt",
+    "prompt_sha256": "c89769df6a3a3f4433289dcf7f4abd221e5cd3b2f5b8d9f6fa92810f551468f1",
+    "provider_output_filename": "exec-470916dd-6cf5-4eb0-81a1-8ae4c19cab1f.png",
+    "generation_date": "2026-11-12",
+    "tool": "Built-in image_gen.imagegen",
+    "model_identifier": "Not exposed by the tool",
+    "image_generation_attempts": 1,
+    "editing": "None; original image copied unchanged; poem typeset separately in PDF",
+    "image_reproducibility": "No image seed was exposed. Poem seeds reproduce poem text, not illustration pixels."
+  },
+  {
+    "title": "A place for sea mist",
+    "theme": "tide",
+    "poem_seed": 43,
+    "candidate_budget": 48,
+    "selected_candidate": 18,
+    "generator_version": "1.0",
+    "grammar_sha256": "bc6668a2bb04dc482abe80fba87d87319f187e2a6368c44e15b21768ebcf15b5",
+    "poem_text_sha256": "f2c62ebb509dd1bc8bee330464b49fdf0f8b4ab1a00964fe2f364a77a769b1bd",
+    "poem_file": "texts/02_tide.txt",
+    "image_file": "images/02_tide.png",
+    "image_sha256": "0057f91bbcd6cab4adbe8681808a726889596e2cf32823a86611d364cef4e28a",
+    "dimensions": [
+      1536,
+      1024
+    ],
+    "prompt_file": "prompts/02_tide.txt",
+    "prompt_sha256": "0c61093aac55ac7dc0f7f0f69f068989936355aed059347a80f69355e52cf40c",
+    "provider_output_filename": "exec-271b4696-02b9-415e-823b-a7e6221d4014.png",
+    "generation_date": "2026-11-12",
+    "tool": "Built-in image_gen.imagegen",
+    "model_identifier": "Not exposed by the tool",
+    "image_generation_attempts": 1,
+    "editing": "None; original image copied unchanged; poem typeset separately in PDF",
+    "image_reproducibility": "No image seed was exposed. Poem seeds reproduce poem text, not illustration pixels."
+  },
+  {
+    "title": "Frost / gate",
+    "theme": "frost",
+    "poem_seed": 44,
+    "candidate_budget": 48,
+    "selected_candidate": 23,
+    "generator_version": "1.0",
+    "grammar_sha256": "bc6668a2bb04dc482abe80fba87d87319f187e2a6368c44e15b21768ebcf15b5",
+    "poem_text_sha256": "5ebcf87b72f80eaf0c1ff90b3d5066e6194b8641397892c1bb51d958c81b85cf",
+    "poem_file": "texts/03_frost.txt",
+    "image_file": "images/03_frost.png",
+    "image_sha256": "e8183898b9bf8f5b3dc2f8a5f00abc8e105c66395f69579b1b47e78d4e88da49",
+    "dimensions": [
+      1536,
+      1024
+    ],
+    "prompt_file": "prompts/03_frost.txt",
+    "prompt_sha256": "2660b702e6d2e9e6a07de9246a5c77187f54d3016009176543cb258f7c8eb6d4",
+    "provider_output_filename": "exec-90942c84-1d1b-4bab-8ae9-851844daed97.png",
+    "generation_date": "2026-11-12",
+    "tool": "Built-in image_gen.imagegen",
+    "model_identifier": "Not exposed by the tool",
+    "image_generation_attempts": 1,
+    "editing": "None; original image copied unchanged; poem typeset separately in PDF",
+    "image_reproducibility": "No image seed was exposed. Poem seeds reproduce poem text, not illustration pixels."
+  }
+]

@@ -1,0 +1,109 @@
+{
+  "design": "100 seeds (0-99) per theme, candidate budgets 1 and 48; no human raters",
+  "limitations": "Heuristic scores and distinct strings are not measures of creativity or literary quality.",
+  "grammar_sha256": "bc6668a2bb04dc482abe80fba87d87319f187e2a6368c44e15b21768ebcf15b5",
+  "conditions": [
+    {
+      "theme": "rain",
+      "candidates": 1,
+      "sample_size": 100,
+      "valid_poems": 100,
+      "distinct_poem_bodies": 100,
+      "distinct_lines": 180,
+      "total_lines": 800,
+      "mean_words_per_line": 7.8,
+      "mean_heuristic_score": 87.62,
+      "min_heuristic_score": 77.25,
+      "max_heuristic_score": 95.75,
+      "most_repeated_line": [
+        "Tomorrow waits beneath the peeling paint.",
+        29
+      ]
+    },
+    {
+      "theme": "rain",
+      "candidates": 48,
+      "sample_size": 100,
+      "valid_poems": 100,
+      "distinct_poem_bodies": 100,
+      "distinct_lines": 154,
+      "total_lines": 800,
+      "mean_words_per_line": 7.41,
+      "mean_heuristic_score": 94.81,
+      "min_heuristic_score": 92.0,
+      "max_heuristic_score": 98.5,
+      "most_repeated_line": [
+        "The crossing changes colour for no one.",
+        52
+      ]
+    },
+    {
+      "theme": "tide",
+      "candidates": 1,
+      "sample_size": 100,
+      "valid_poems": 100,
+      "distinct_poem_bodies": 100,
+      "distinct_lines": 180,
+      "total_lines": 800,
+      "mean_words_per_line": 8.27,
+      "mean_heuristic_score": 81.33,
+      "min_heuristic_score": 69.75,
+      "max_heuristic_score": 90.5,
+      "most_repeated_line": [
+        "Beyond the pier, the water starts again.",
+        29
+      ]
+    },
+    {
+      "theme": "tide",
+      "candidates": 48,
+      "sample_size": 100,
+      "valid_poems": 100,
+      "distinct_poem_bodies": 100,
+      "distinct_lines": 167,
+      "total_lines": 800,
+      "mean_words_per_line": 7.89,
+      "mean_heuristic_score": 90.06,
+      "min_heuristic_score": 86.5,
+      "max_heuristic_score": 95.25,
+      "most_repeated_line": [
+        "The distance leaves a little salt behind.",
+        47
+      ]
+    },
+    {
+      "theme": "frost",
+      "candidates": 1,
+      "sample_size": 100,
+      "valid_poems": 100,
+      "distinct_poem_bodies": 100,
+      "distinct_lines": 180,
+      "total_lines": 800,
+      "mean_words_per_line": 8.39,
+      "mean_heuristic_score": 80.28,
+      "min_heuristic_score": 70.25,
+      "max_heuristic_score": 91.25,
+      "most_repeated_line": [
+        "The garden keeps a space for what comes next.",
+        29
+      ]
+    },
+    {
+      "theme": "frost",
+      "candidates": 48,
+      "sample_size": 100,
+      "valid_poems": 100,
+      "distinct_poem_bodies": 100,
+      "distinct_lines": 163,
+      "total_lines": 800,
+      "mean_words_per_line": 7.92,
+      "mean_heuristic_score": 89.51,
+      "min_heuristic_score": 84.5,
+      "max_heuristic_score": 94.5,
+      "most_repeated_line": [
+        "A little warmth is working out of sight.",
+        48
+      ]
+    }
+  ]
+}

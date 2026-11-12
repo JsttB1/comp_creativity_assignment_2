@@ -1,0 +1,3 @@
+# Optional PDF extraction and visual QA tools; not required to generate poems.
+pypdf==7.0.1
+PyMuPDF==2.1

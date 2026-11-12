@@ -1,0 +1,22 @@
+Use case: illustration-story
+Asset type: an original illustration for a poetry anthology; one of a coherent three-image series called Small Weather.
+Primary request: interpret the following computer-generated poem through a single quiet scene. The poem is the semantic reference only; do not render any of its words in the image.
+
+A place for sea mist
+
+Below the empty pier, sea mist unbuttons the horizon.
+The paint-worn boat keeps a name nobody calls.
+
+A chain knocks softly on the stone.
+All this time, the tide erases one more waterline.
+
+Perhaps this is how a place forgives.
+And yet a boat turns slowly towards the open water.
+
+Even now, the boat has learned to wait.
+The shore remains, though nothing here stands still.
+
+Scene and subject: A small paint-worn wooden boat below an empty timber pier in a quiet harbour. It is tethered by a chain near stone steps, turned slightly towards open water. Sea mist dissolves the horizon. A wet tide mark on the stones indicates that the water is receding. A small warm area of worn ochre paint balances blue-grey water. Stillness with barely perceptible motion; release and forgiveness without a literal human figure.
+Style and medium: restrained editorial illustration combining soft gouache washes and fine drypoint-like ink marks on warm ivory paper. Subtle paper grain, simplified but specific forms, sophisticated literary-journal atmosphere. Not photographic or cartoonish. A limited palette of charcoal, muted slate blue, weathered teal and tiny touches of ochre, with generous pale atmosphere. Use this same medium and palette for the series.
+Composition: a wide landscape image, approximately 3:2, composed as a complete artwork with no frame. Put visual attention on the small object named in the poem and allow breathing room around it. Poem text will be typeset separately below the artwork.
+Constraints: no typography, letters, numbers, title, captions, logos, signatures or watermarks; no people or human faces; do not make objects into characters with eyes or mouths. Preserve the poem's quiet ambiguity and avoid a crowded scene.

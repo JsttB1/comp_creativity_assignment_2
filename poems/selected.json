@@ -1,0 +1,68 @@
+[
+  {
+    "title": "Rain / ticket",
+    "lines": [
+      "Under the railway bridge, rain unthreads the evening.",
+      "The sodden ticket shelters a name nobody calls.",
+      "A loose sign taps against the wall.",
+      "One lit window floats inside a puddle.",
+      "I thought that leaving would be louder.",
+      "But the street keeps making room for footsteps.",
+      "The ticket stays when I turn away.",
+      "A little water travels on without me."
+    ],
+    "theme": "rain",
+    "seed": 42,
+    "motif": "ticket",
+    "score": 97.0,
+    "candidate_index": 28,
+    "candidates_tried": 48,
+    "grammar_sha256": "bc6668a2bb04dc482abe80fba87d87319f187e2a6368c44e15b21768ebcf15b5",
+    "generator_version": "1.0",
+    "text": "Rain / ticket\n\nUnder the railway bridge, rain unthreads the evening.\nThe sodden ticket shelters a name nobody calls.\n\nA loose sign taps against the wall.\nOne lit window floats inside a puddle.\n\nI thought that leaving would be louder.\nBut the street keeps making room for footsteps.\n\nThe ticket stays when I turn away.\nA little water travels on without me.\n"
+  },
+  {
+    "title": "A place for sea mist",
+    "lines": [
+      "Below the empty pier, sea mist unbuttons the horizon.",
+      "The paint-worn boat keeps a name nobody calls.",
+      "A chain knocks softly on the stone.",
+      "All this time, the tide erases one more waterline.",
+      "Perhaps this is how a place forgives.",
+      "And yet a boat turns slowly towards the open water.",
+      "Even now, the boat has learned to wait.",
+      "The shore remains, though nothing here stands still."
+    ],
+    "theme": "tide",
+    "seed": 43,
+    "motif": "boat",
+    "score": 89.75,
+    "candidate_index": 18,
+    "candidates_tried": 48,
+    "grammar_sha256": "bc6668a2bb04dc482abe80fba87d87319f187e2a6368c44e15b21768ebcf15b5",
+    "generator_version": "1.0",
+    "text": "A place for sea mist\n\nBelow the empty pier, sea mist unbuttons the horizon.\nThe paint-worn boat keeps a name nobody calls.\n\nA chain knocks softly on the stone.\nAll this time, the tide erases one more waterline.\n\nPerhaps this is how a place forgives.\nAnd yet a boat turns slowly towards the open water.\n\nEven now, the boat has learned to wait.\nThe shore remains, though nothing here stands still.\n"
+  },
+  {
+    "title": "Frost / gate",
+    "lines": [
+      "Frost practises its careful handwriting beneath the apple branches.",
+      "The crooked gate shelters a small unfinished song.",
+      "A branch taps once against the greenhouse.",
+      "The soil keeps all its letters underground.",
+      "I thought that leaving would be louder.",
+      "But the light returns without an explanation.",
+      "The gate has learned to wait.",
+      "Under the path, a root goes on deciding."
+    ],
+    "theme": "frost",
+    "seed": 44,
+    "motif": "gate",
+    "score": 94.5,
+    "candidate_index": 23,
+    "candidates_tried": 48,
+    "grammar_sha256": "bc6668a2bb04dc482abe80fba87d87319f187e2a6368c44e15b21768ebcf15b5",
+    "generator_version": "1.0",
+    "text": "Frost / gate\n\nFrost practises its careful handwriting beneath the apple branches.\nThe crooked gate shelters a small unfinished song.\n\nA branch taps once against the greenhouse.\nThe soil keeps all its letters underground.\n\nI thought that leaving would be louder.\nBut the light returns without an explanation.\n\nThe gate has learned to wait.\nUnder the path, a root goes on deciding.\n"
+  }
+]

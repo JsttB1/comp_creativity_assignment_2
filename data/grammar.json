@@ -1,0 +1,71 @@
+{
+  "version": "1.0",
+  "description": "Original, AI-assisted phrase banks for Small Weather. Source poems are conceptual inspiration, never runtime input.",
+  "common": {
+    "memory": ["an unfinished goodbye", "the shape of a hand", "a name nobody calls", "the weight of a promise", "a small unfinished song", "the warmth of a pocket"],
+    "action": ["keeps", "rehearses", "dreams of", "shelters", "remembers"],
+    "turn": ["I came here to leave something behind.", "For once, I have nothing to ask.", "I thought that leaving would be louder.", "Perhaps this is how a place forgives.", "I stay until my hurry comes apart."],
+    "return_action": ["has learned to wait", "keeps its small vigil", "holds the silence open", "stays when I turn away", "lets the distance settle"],
+    "title": ["What the {motif} keeps", "{weather} / {motif}", "A place for {weather}", "The patience of the {motif}", "After the {weather}"]
+  },
+  "templates": [
+    ["{place}, {weather} {weather_action}.", "{weather} {weather_action} {place}."],
+    ["The {adjective} {motif} {action} {memory}.", "A {adjective} {motif} still {action} {memory}."],
+    ["{sound}.", "Nearby, {sound}."],
+    ["{detail}.", "All this time, {detail}."],
+    ["{turn}"],
+    ["But {counterpoint}.", "And yet {counterpoint}."],
+    ["The {motif} {return_action}.", "Even now, the {motif} {return_action}."],
+    ["{ending}."]
+  ],
+  "themes": {
+    "rain": {
+      "label": "City / waiting",
+      "weather": "rain",
+      "places": ["at the last tram stop", "beside the shuttered cafe", "under the railway bridge", "at the end of our street"],
+      "weather_actions": ["unthreads the evening", "counts the empty windows", "blurs the way back", "loosens every outline"],
+      "motifs": [
+        {"noun": "bicycle", "adjective": "rusted"},
+        {"noun": "umbrella", "adjective": "folded"},
+        {"noun": "ticket", "adjective": "sodden"},
+        {"noun": "bench", "adjective": "vacant"}
+      ],
+      "sounds": ["water clicks inside a drain", "a tram bell trembles down the street", "a gutter hums above the doorway", "a loose sign taps against the wall"],
+      "details": ["one lit window floats inside a puddle", "the pavement wears a second sky", "a paper cup fills slowly with the dark", "the crossing changes colour for no one"],
+      "counterpoints": ["the street keeps making room for footsteps", "the puddles hold their borrowed light", "another window opens to the weather", "the gutter carries on without an answer"],
+      "endings": ["Somewhere, a door is drying in its frame", "The last light takes the long way home", "A little water travels on without me", "Tomorrow waits beneath the peeling paint"]
+    },
+    "tide": {
+      "label": "Harbour / release",
+      "weather": "sea mist",
+      "places": ["beside the harbour steps", "below the empty pier", "along the harbour wall", "at the edge of the boatyard"],
+      "weather_actions": ["unbuttons the horizon", "folds the far shore away", "softens every departure", "wanders through the rigging"],
+      "motifs": [
+        {"noun": "rope", "adjective": "salt-stiff"},
+        {"noun": "buoy", "adjective": "faded"},
+        {"noun": "boat", "adjective": "paint-worn"},
+        {"noun": "bollard", "adjective": "weathered"}
+      ],
+      "sounds": ["a chain knocks softly on the stone", "water knocks beneath the landing", "a gull calls once beyond the boats", "a loose halyard rings against a mast"],
+      "details": ["the tide erases one more waterline", "a strip of sky lies caught between the boats", "salt blooms along the seam of every plank", "the harbour turns its pockets inside out"],
+      "counterpoints": ["the water keeps returning what it can", "the shore makes room for one more wave", "the tide has never learned to hold a grudge", "a boat turns slowly towards the open water"],
+      "endings": ["The shore remains, though nothing here stands still", "One small wave arrives with empty hands", "The distance leaves a little salt behind", "Beyond the pier, the water starts again"]
+    },
+    "frost": {
+      "label": "Garden / return",
+      "weather": "frost",
+      "places": ["behind the sleeping houses", "beside the greenhouse door", "along the garden path", "beneath the apple branches"],
+      "weather_actions": ["practises its careful handwriting", "mends the broken light", "whitens every small refusal", "holds the morning still"],
+      "motifs": [
+        {"noun": "flowerpot", "adjective": "cracked"},
+        {"noun": "gate", "adjective": "crooked"},
+        {"noun": "spade", "adjective": "forgotten"},
+        {"noun": "watering can", "adjective": "dented"}
+      ],
+      "sounds": ["a blackbird tests the quiet with one note", "a latch clicks softly in the morning air", "a branch taps once against the greenhouse", "gravel shifts beneath a careful foot"],
+      "details": ["each blade of grass carries a little glass", "the soil keeps all its letters underground", "a leaf holds still beneath its coat of white", "the greenhouse keeps a thumbprint of the sun"],
+      "counterpoints": ["a green shoot lifts the edge of winter", "the roots have kept a different calendar", "a patch of earth begins to show its colour", "the light returns without an explanation"],
+      "endings": ["Under the path, a root goes on deciding", "By noon, the smallest drop will find the soil", "A little warmth is working out of sight", "The garden keeps a space for what comes next"]
+    }
+  }
+}
