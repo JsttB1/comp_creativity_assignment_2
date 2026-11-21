@@ -1,0 +1,441 @@
+\documentclass[letterpaper]{article}
+\usepackage{iccc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{url}
+\usepackage[hidelinks]{hyperref}
+\pdfinfo{
+/Title (Small Weather: A Grammar-Based Generator of Eight-Line Weather Poems)
+/Author (Ahmad Elhage)
+}
+
+\newcommand{\code}[1]{\texttt{\small #1}}
+
+\title{Small Weather: A Grammar-Based Generator\\of Eight-Line Weather Poems}
+\author{Ahmad El Hage \textbullet\ Emrecan Birol\\
+Course: Computational Creativity\\
+Project Assignment 2: Bad Poets Society\\
+a.el.hage@umail.leidenuniv.nl \textbullet\ e.birol@umail.leidenuniv.nl}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\emph{Small Weather} is a small poem generator written in Python. It
+writes eight-line free-verse poems about a rainy city, a misty harbour
+or a frosted garden. In each poem an ordinary object takes on an
+emotional trace and comes back near the end. The system expands a
+hand-written grammar, makes 48 seeded candidate poems and picks one
+with a simple craft heuristic. Three of its poems were illustrated with
+a text-to-image model and typeset as a short anthology. This report
+describes the inspiring set, the design of the generator and its
+stopping criteria, a mechanical audit of 600 outputs and how the
+generative-AI presentation was made. It closes with a reflection on how
+the creativity of a system like this could, and could not, be
+evaluated. The main finding is that our selection step raises the
+heuristic score but makes the output less diverse. This shows how
+easily an internal measure of quality can be confused with creativity.
+\end{abstract}
+
+\section{Introduction}
+Poetry generation is one of the oldest problems in computational
+creativity. Approaches range from templates and grammars to evolutionary
+search, corpus-based methods and large language models
+\citep{lamb2017taxonomy}. For this assignment we wanted a system whose
+behaviour we could explain completely, line by line. So we chose a
+\emph{finite, parameterised grammar} with a bounded generate-and-select
+loop rather than a pretrained model. That choice limits what the system
+can do, and much of this report is about those limits.
+
+We worked in five steps. (1)~We gathered a small inspiring set and wrote
+down what we wanted to take from each poem. (2)~We designed a fixed
+poetic form and turned it into a grammar. (3)~We implemented and tested
+the generator, including its stopping and selection rules. (4)~We
+generated three poems and presented them with AI illustrations in an
+anthology. (5)~We audited the outputs and thought about how
+creativity might be evaluated. The project log (\code{LOGBOOK.md})
+records each step in more detail.
+
+\section{The Inspiring Set}
+\citet{ritchie2007} defines the \emph{inspiring set} as the artefacts
+that guide the construction of a creative system, whether or not the
+system reads them. Ours is deliberately small and narrow. It has three
+short English weather poems from public-domain collections, which we
+read on Poets.org and Lit2Go:
+\begin{itemize}\itemsep 0pt
+\item \textbf{Carl Sandburg, \emph{Fog}} \citep{sandburg1916}. A brief
+weather image becomes an animate presence in a concrete city setting.
+\emph{Take:} brevity, and weather that \emph{acts}. \emph{Avoid:}
+reusing its central animal metaphor.
+\item \textbf{Emily Dickinson, \emph{Beclouded}} \citep{dickinson1890}.
+The sky and wind behave like people with moods, and a tiny scene
+carries a wider emotional implication. \emph{Take:} human verbs for
+non-human things. \emph{Avoid:} imitating her rhyme and dashes.
+\item \textbf{Sara Teasdale, \emph{There Will Come Soft Rains}}
+\citep{teasdale1920}. Gentle sensory details lead to a turn in
+perspective about human absence. \emph{Take:} moving from observation
+to a turn, and ending on an image that continues beyond the speaker.
+\emph{Avoid:} its war setting and rhymed couplets.
+\end{itemize}
+We picked these poems because they share a scale, which is \emph{small
+weather}: one place, one moment and an emotion that is implied rather
+than stated. A larger, mixed corpus would have pulled the design in too
+many directions. The program does not load these texts, and no source
+line appears in its data. The phrase banks are original (see the
+\emph{Use of Generative AI} statement below). We also rejected a Markov
+chain trained on the set. With only three short poems it would either
+produce incoherent text or copy its sources word for word, the
+``plagiarism'' end of the novelty scale that \citet{ritchie2007}
+warns about.
+
+\section{The Generator}
+\subsection{Form}
+Our initial idea, recorded before implementation, was a fixed form of
+four couplets (eight lines) in free verse. Each line has a set rhetorical
+function: (1)~weather acts on a place; (2)~an object holds a memory;
+(3)~a sound; (4)~a visual detail; (5)~a first-person \emph{turn};
+(6)~the environment answers with a counterpoint; (7)~the object
+\emph{returns}; (8)~a closing image that continues beyond the speaker.
+Each line maps to something we took from the inspiring set. Lines 1--2
+come from Sandburg and Dickinson, and lines 5--8 from Teasdale.
+
+\subsection{Grammar}
+The grammar lives in \code{data/grammar.json}, so it can be read and
+edited without touching the code. It has eight template banks, one per
+line, with one or two surface variants each. For example, line~2 is
+either ``\code{The \{adjective\} \{motif\} \{action\} \{memory\}.}'' or
+``\code{A \{adjective\} \{motif\} still \{action\} \{memory\}.}''.
+The templates draw on two kinds of phrase bank. \emph{Common} banks
+(memories, actions, turns, return actions and titles) are shared by all
+poems. \emph{Theme} banks hold four places, four weather actions, four
+sounds, four details, four counterpoints, four endings and four motifs
+for each theme. The themes are rain (city, waiting), sea mist (harbour,
+release) and frost (garden, return).
+
+Two design decisions do most of the work for coherence. First, each
+motif is a fixed noun--adjective pair, such as \emph{sodden ticket} or
+\emph{crooked gate}, so adjectives always fit their nouns. Second, the
+motif is chosen \emph{once per poem}. The same object therefore appears
+in lines~2 and~7, which gives every poem a small arc of departure and
+return. All motif nouns are singular and all opening verbs are
+third-person singular, so agreement errors cannot occur. Each theme
+allows about $7.9\times10^{8}$ different poem bodies.
+
+\subsection{Generation, Selection and Stopping}
+Given a theme and an integer seed, the generator creates a local
+\code{random.Random(seed)}. It then expands the grammar into a fixed
+budget of candidate poems (48 by default, at most 1,000). A candidate is
+\emph{complete} when it has eight lines. This is our first stopping
+criterion: a poem has a fixed length, not an open-ended stream. Each
+candidate goes through a mechanical validator. It must have no
+duplicate lines, 4--14 words per line, no unresolved placeholders, and
+the motif in lines~2 and~7. Valid candidates are then scored by a small
+craft heuristic:
+\[
+s = 100 - 1.25\,L - 3\,R + 0.75\min(A,4).
+\]
+Here $L$ is the total distance from seven words per line, $R$ counts
+repeated content words outside the motif, and $A$ counts lines with
+adjacent alliteration. The second stopping criterion is the budget.
+Search always ends after exactly the requested number of candidates.
+The highest-scoring valid candidate wins, and ties go to the earliest
+one. If no candidate is valid, the program stops with an error instead
+of looping. The output is one poem per requested seed, as text or as
+JSON with full metadata (seed, winning candidate index, score and a
+SHA-256 hash of the grammar), so every poem can be reproduced exactly.
+
+\subsection{Implementation}
+The generator (\code{poet.py}, about 230 lines) uses only the Python
+standard library and runs offline. A command-line interface exposes
+the theme, seed, poem count, candidate budget, output format and an
+alternative grammar file. Six unit tests check determinism, variation
+across seeds, bounded failure, argument validation and structural rules
+across 150 theme/seed combinations. We also considered Tracery
+\citep{compton2015tracery}. A plain Python grammar made it easier to
+add a motif that persists across the poem and the validation and
+selection steps.
+
+\section{Results}
+Figure~\ref{fig:anthology} shows the three anthology poems. They come
+from consecutive seeds 42--44 with the default budget, and the winners
+were candidates 28, 18 and 23. We did not search for good seeds, and
+we did not edit the texts by hand.
+
+\begin{figure*}[t]
+\centering
+\begin{minipage}[t]{0.32\textwidth}\centering
+\includegraphics[width=\linewidth]{01_rain.jpg}\\[3pt]
+\begin{minipage}{0.97\linewidth}\scriptsize\raggedright
+\textbf{Rain / ticket}\\[2pt]
+Under the railway bridge, rain unthreads the evening.\\
+The sodden ticket shelters a name nobody calls.\\[2pt]
+A loose sign taps against the wall.\\
+One lit window floats inside a puddle.\\[2pt]
+I thought that leaving would be louder.\\
+But the street keeps making room for footsteps.\\[2pt]
+The ticket stays when I turn away.\\
+A little water travels on without me.
+\end{minipage}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.32\textwidth}\centering
+\includegraphics[width=\linewidth]{02_tide.jpg}\\[3pt]
+\begin{minipage}{0.97\linewidth}\scriptsize\raggedright
+\textbf{A place for sea mist}\\[2pt]
+Below the empty pier, sea mist unbuttons the horizon.\\
+The paint-worn boat keeps a name nobody calls.\\[2pt]
+A chain knocks softly on the stone.\\
+All this time, the tide erases one more waterline.\\[2pt]
+Perhaps this is how a place forgives.\\
+And yet a boat turns slowly towards the open water.\\[2pt]
+Even now, the boat has learned to wait.\\
+The shore remains, though nothing here stands still.
+\end{minipage}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.32\textwidth}\centering
+\includegraphics[width=\linewidth]{03_frost.jpg}\\[3pt]
+\begin{minipage}{0.97\linewidth}\scriptsize\raggedright
+\textbf{Frost / gate}\\[2pt]
+Frost practises its careful handwriting beneath the apple branches.\\
+The crooked gate shelters a small unfinished song.\\[2pt]
+A branch taps once against the greenhouse.\\
+The soil keeps all its letters underground.\\[2pt]
+I thought that leaving would be louder.\\
+But the light returns without an explanation.\\[2pt]
+The gate has learned to wait.\\
+Under the path, a root goes on deciding.
+\end{minipage}
+\end{minipage}
+\caption{The \emph{Small Weather} anthology: three generated poems
+(seeds 42, 43, 44; unedited) with their AI-generated illustrations.}
+\label{fig:anthology}
+\end{figure*}
+
+Reading the poems critically, we find that the fixed form gives each
+one a clear shape. The object returns, the turn lands in line~5 and the
+ending points outward. Some combinations work better than we planned.
+In \emph{Frost / gate}, the frost's ``careful handwriting'', the
+soil's ``letters underground'' and the ``deciding'' root form a
+connected metaphor of writing and growth that no single rule produced.
+Other combinations are weaker. In the harbour poem the boat ``turns
+slowly towards the open water'' and also ``has learned to wait''. A
+reader may find this tension evocative or simply inconsistent, and the
+system cannot tell the difference. Repetition also appears
+\emph{across} the poems: two of the three use ``I thought that leaving
+would be louder'', and two use ``a name nobody calls''. The validator
+only prevents duplicate lines within a single poem.
+
+\paragraph{Mechanical audit.}
+We generated 100 poems per theme (seeds 0--99) with budgets of 1 and 48
+candidates, 600 poems in total (Table~\ref{tab:audit}). All 600 passed
+the mechanical checks, and every condition produced 100 distinct poem
+bodies. A further sample of 20,000 raw candidates per theme found
+\emph{no} validator failures. The grammar meets its constraints by
+construction, so in practice the ``generate-and-test'' loop is pure
+ranking. The validator is only a safety net for edited grammars.
+
+\begin{table}[h]
+\centering\small
+\begin{tabular}{lcccc}
+\toprule
+ & \multicolumn{2}{c}{Mean score} & \multicolumn{2}{c}{Distinct lines /800}\\
+Theme & 1 cand. & 48 cand. & 1 cand. & 48 cand.\\
+\midrule
+Rain  & 87.62 & 94.81 & 180 & 154\\
+Tide  & 81.33 & 90.06 & 180 & 167\\
+Frost & 80.28 & 89.51 & 180 & 163\\
+\bottomrule
+\end{tabular}
+\caption{Audit of 100 poems per condition.}
+\label{tab:audit}
+\end{table}
+
+Selection raised the heuristic score in every theme, but it also reduced
+the number of distinct lines. The score prefers seven-word lines, so it
+systematically favours short phrases. Across the 300 selected poems,
+``an unfinished goodbye'' fills the memory slot 118 times, against an
+expected 50 under uniform choice, and ``has learned to wait'' is the
+most common return action. The selector is not improving the poems in
+general. It is narrowing them toward one dimension of what we think a
+good line looks like. This trade-off between value and variety is
+discussed below.
+
+\section{Presenting the Poems with Generative AI}
+We presented the poems as a small illustrated anthology
+(\code{Small\_Weather\_Anthology.pdf}), with one page per poem. This
+format suits short, quiet poems and keeps the exact text easy to read.
+For each poem we gave the built-in image generation tool of our AI
+assistant a structured prompt. The prompt contained the \emph{complete
+poem} as a semantic reference, a scene description centred on the
+poem's object and setting (a ticket under a railway bridge, a boat
+below a pier, a gate by a greenhouse) and a shared style: gouache and
+fine ink on ivory paper, in a muted slate, teal and ochre palette. It
+also listed constraints: no lettering, no people and no objects turned
+into cartoon characters. The first image from each prompt was kept
+without editing. A ReportLab script then set each illustration above
+its poem, so the text is real, selectable type. We did not ask the
+image model to render the words, so it could not misspell or rewrite
+the poem. All prompts, file hashes and tool details are stored in
+\code{presentation/provenance.json}. The provider did not expose a
+model identifier or image seed, so the images cannot be regenerated
+exactly.
+
+\paragraph{Reflection.}
+The image model was most useful for unifying the collection. A shared
+style made three separately generated poems look like a deliberate
+series, and that probably increases how much readers value them
+\citep{colton2008}. The images also \emph{interpret}. The rain image
+makes the ticket and the reflected window concrete and gives the
+departure a mood. The frost image shows exposed roots and turns the
+poem's ambiguous ``deciding'' root into something literal. The harbour
+image captures stillness and tethering but cannot show
+``forgiveness''. An illustration can therefore narrow a reader's
+imagination as easily as it widens it. We also noticed that the
+scene-and-style text we wrote shaped the images more than the poem
+did. That is our creative contribution, not the generator's. It also
+raises the question of where the credit lies when a poem's perceived
+value rises because of a picture the poet did not make.
+
+\section{Evaluating the Creativity of the System}
+We did not run a formal creativity study, so this section is a
+reflection. It draws on the audit and on established frameworks.
+
+\paragraph{What the numbers do not show.}
+The audit establishes reproducibility, bounded termination and
+structural correctness. The fact that 100 out of 100 poem bodies are
+distinct says nothing about creativity, because a grammar with
+$10^{8}$ combinations will almost never repeat itself in a small
+sample. The heuristic score is even less informative. It measures
+exactly what the selector optimises, so it is not independent
+evidence. In fact the score went up while diversity went down.
+
+\paragraph{Ritchie's criteria.}
+\citet{ritchie2007} proposes judging a system by the \emph{typicality}
+and \emph{quality} of its outputs and by their novelty relative to the
+inspiring set. Our system is probably strong on typicality, since every
+output is recognisably the intended form. It may be moderate on
+quality, which only human ratings could estimate. It is weak on novelty
+\emph{within} its own space. Every line comes from a fixed bank, and
+the system can never produce a phrase we did not write. Novelty
+relative to the inspiring set is high only because we made it so by
+design.
+
+\paragraph{Boden and the creative tripod.}
+In \citeauthor{boden2004}'s terms \citeyearpar{boden2004}, the system
+is \emph{combinational} and at best weakly \emph{exploratory}. It
+searches a conceptual space we defined and cannot change that space.
+Following \citet{wiggins2006}, it can traverse its rules but has no
+mechanism to transform them. Against \citeauthor{colton2008}'s
+creative tripod \citeyearpar{colton2008}, it shows some \emph{skill} in
+producing well-formed, coherent poems and very limited
+\emph{appreciation} in its craft score. It shows almost no
+\emph{imagination}, since it never departs from its templates.
+It also does not frame its work: it cannot explain why a poem matters
+\citep{colton2012fullface}.
+
+\paragraph{How we would evaluate it.}
+A meaningful evaluation would ask human readers. We would run a blind
+study with a pre-registered seed schedule. Participants would rate
+poems from the 1-candidate and 48-candidate conditions for coherence,
+imagery, surprise and emotional effect. A second, counterbalanced
+comparison of plain-text and illustrated versions would test whether
+the presentation changes perceived value. Following
+\citet{jordanous2012}, we would first state which components of
+creativity matter in this domain, such as surprise, value and
+intentionality, and evaluate against those rather than against a
+single score. Finally, a ``mere generation'' baseline (one candidate,
+no selection) is essential. Our audit suggests that a critic can make
+poems \emph{more polished and more alike} at the same time, and only
+readers can say whether that is a gain.
+
+\section{Limitations and Future Work}
+The structure, themes and almost all of the phrasing were fixed by
+humans with AI assistance, so most of the creative decisions sit
+outside the running program. The most valuable next step would be to
+give the system ways to change itself. For example, it could penalise
+phrases reused across a collection, learn new motifs from a larger
+inspiring set or vary the form. A second step would be to have it
+write a short framing statement for each poem.
+
+\section{Use of Generative AI}
+Generative AI was used at three distinct stages. (1)~\emph{Development:}
+an AI coding assistant (OpenAI Codex) helped choose the concept, draft
+the code and the original phrase banks, check outputs and write
+documentation. The author reviewed and directed this work, and an AI
+assistant (Claude) helped draft this report. (2)~\emph{Runtime:} the
+poem generator itself uses no model or network. It only recombines the
+saved grammar. (3)~\emph{Presentation:} the three illustrations were
+produced by a text-to-image tool from the prompts described above. The
+poem texts were never altered by any AI tool after generation.
+
+
+\begin{thebibliography}{99}
+
+\bibitem[Boden(2004)]{boden2004}
+Boden, M.~A. 2004.
+\newblock \emph{The Creative Mind: Myths and Mechanisms}.
+\newblock London: Routledge, 2nd edition.
+
+\bibitem[Colton, Goodwin, and Veale(2012)]{colton2012fullface}
+Colton, S.; Goodwin, J.; and Veale, T. 2012.
+\newblock Full-{FACE} poetry generation.
+\newblock In \emph{Proceedings of the Third International Conference on
+Computational Creativity}, 95--102.
+
+\bibitem[Colton(2008)]{colton2008}
+Colton, S. 2008.
+\newblock Creativity versus the perception of creativity in
+computational systems.
+\newblock In \emph{AAAI Spring Symposium: Creative Intelligent Systems},
+14--20.
+
+\bibitem[Compton, Kybartas, and Mateas(2015)]{compton2015tracery}
+Compton, K.; Kybartas, B.; and Mateas, M. 2015.
+\newblock Tracery: An author-focused generative text tool.
+\newblock In \emph{Interactive Storytelling (ICIDS 2015)}, 154--161.
+Springer.
+
+\bibitem[Dickinson(1890)]{dickinson1890}
+Dickinson, E. 1890.
+\newblock Beclouded.
+\newblock In \emph{Poems by Emily Dickinson, Series One}. Boston: Roberts
+Brothers. Read via Lit2Go, University of South Florida.
+\newblock \url{https://etc.usf.edu/lit2go/114/the-poems-of-emily-dickinson-series-one/2632/nature-poem-29-beclouded/}.
+
+\bibitem[Jordanous(2012)]{jordanous2012}
+Jordanous, A. 2012.
+\newblock A standardised procedure for evaluating creative systems:
+Computational creativity evaluation based on what it is to be creative.
+\newblock \emph{Cognitive Computation} 4(3):246--279.
+
+\bibitem[Lamb, Brown, and Clarke(2017)]{lamb2017taxonomy}
+Lamb, C.; Brown, D.~G.; and Clarke, C.~L.~A. 2017.
+\newblock A taxonomy of generative poetry techniques.
+\newblock \emph{Journal of Mathematics and the Arts} 11(3):159--179.
+
+\bibitem[Ritchie(2007)]{ritchie2007}
+Ritchie, G. 2007.
+\newblock Some empirical criteria for attributing creativity to a
+computer program.
+\newblock \emph{Minds and Machines} 17(1):67--99.
+
+\bibitem[Sandburg(1916)]{sandburg1916}
+Sandburg, C. 1916.
+\newblock Fog.
+\newblock In \emph{Chicago Poems}. New York: Henry Holt. Read via
+Poets.org, \url{https://poets.org/poem/fog}.
+
+\bibitem[Teasdale(1920)]{teasdale1920}
+Teasdale, S. 1920.
+\newblock There will come soft rains.
+\newblock In \emph{Flame and Shadow}. New York: Macmillan. Read via
+Poets.org, \url{https://poets.org/poem/there-will-come-soft-rains}.
+
+\bibitem[Wiggins(2006)]{wiggins2006}
+Wiggins, G.~A. 2006.
+\newblock A preliminary framework for description, analysis and
+comparison of creative systems.
+\newblock \emph{Knowledge-Based Systems} 19(7):449--458.
+
+\end{thebibliography}
+\end{document}

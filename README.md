@@ -2,7 +2,7 @@
 
 A reproducible Python poem generator for **Bad Poets Society, Assignment 2**. It writes eight-line free-verse poems about a rainy city, a misty harbour or a frosted garden. Each poem introduces an ordinary object, gives it an emotional trace, and returns to it before closing.
 
-The project includes a documented inspiring set, runnable source, three generated poems, three AI illustrations, a typeset poetry anthology and two ZIP packages. **The assignment report has deliberately not been written, as requested.** The anthology is the poetry presentation, not the report.
+The project includes a documented inspiring set, runnable source, three generated poems, three AI illustrations, a typeset poetry anthology, two ZIP packages and the four-page ICCC-format report (`output/pdf/Small_Weather_Report.pdf`, LaTeX source in `report/`).
 
 Project status: [what we have done](WHAT_WE_HAVE_DONE.md) and [what is left](WHAT_IS_LEFT.md).
 
@@ -49,6 +49,16 @@ The archive `output/zips/Small_Weather_Source.zip` contains source, data, docume
 ```sh
 python3 -m unittest discover -s tests -v
 python3 scripts/evaluate.py
+python3 scripts/selection_bias.py
+```
+
+## Rebuild the report
+
+Requires a LaTeX distribution with `pdflatex` (e.g. TeX Live or MiKTeX):
+
+```sh
+cd report
+pdflatex report.tex && pdflatex report.tex
 ```
 
 The tests check determinism, varied seeds, finite failure, invalid arguments, structural rules across all themes, and execution from another directory without overwriting an existing file. The audit compares 1 versus 48 candidates across seeds 0-99 in each theme. All 600 poems passed the mechanical rules; each 100-poem condition contained 100 distinct bodies. Line variety decreased with selection. No human reader study has been performed.

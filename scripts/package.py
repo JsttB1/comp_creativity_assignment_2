@@ -31,10 +31,11 @@ def main():
         "WHAT_WE_HAVE_DONE.md", "WHAT_IS_LEFT.md",
         "Bad_Poets_Society_Assignment_2.md",
     )]
-    for folder in ("data", "tests", "scripts", "poems", "evaluation", "presentation"):
+    for folder in ("data", "tests", "scripts", "poems", "evaluation", "presentation", "report"):
         source_paths.extend(path for path in sorted((ROOT / folder).rglob("*"))
                             if path.is_file() and "__pycache__" not in path.parts
-                            and path.name != ".DS_Store")
+                            and path.name != ".DS_Store"
+                            and path.suffix not in {".aux", ".log", ".out"})
     source = [(path, str(Path("small_weather_source") / path.relative_to(ROOT))) for path in source_paths]
     presentation = [(path, str(Path("small_weather_presentation") / path.relative_to(ROOT / "presentation")))
                     for path in sorted((ROOT / "presentation").rglob("*"))

@@ -1,0 +1,84 @@
+{
+  "grammar_sha256": "bc6668a2bb04dc482abe80fba87d87319f187e2a6368c44e15b21768ebcf15b5",
+  "space": {
+    "rain": 786432000,
+    "tide": 786432000,
+    "frost": 786432000
+  },
+  "validator": {
+    "rain": {
+      "samples": 20000,
+      "failures": 0
+    },
+    "tide": {
+      "samples": 20000,
+      "failures": 0
+    },
+    "frost": {
+      "samples": 20000,
+      "failures": 0
+    }
+  },
+  "phrase_frequency": {
+    "1": {
+      "poems": 300,
+      "uniform_expectation": {
+        "memory": 50.0,
+        "turn": 60.0,
+        "return_action": 60.0
+      },
+      "memory": {
+        "a small unfinished song": 66,
+        "the weight of a promise": 63,
+        "a name nobody calls": 63,
+        "an unfinished goodbye": 54,
+        "the warmth of a pocket": 27,
+        "the shape of a hand": 27
+      },
+      "turn": {
+        "I thought that leaving would be louder.": 78,
+        "For once, I have nothing to ask.": 66,
+        "I came here to leave something behind.": 57,
+        "I stay until my hurry comes apart.": 54,
+        "Perhaps this is how a place forgives.": 45
+      },
+      "return_action": {
+        "keeps its small vigil": 84,
+        "holds the silence open": 57,
+        "stays when I turn away": 57,
+        "lets the distance settle": 51,
+        "has learned to wait": 51
+      }
+    },
+    "48": {
+      "poems": 300,
+      "uniform_expectation": {
+        "memory": 50.0,
+        "turn": 60.0,
+        "return_action": 60.0
+      },
+      "memory": {
+        "an unfinished goodbye": 118,
+        "a name nobody calls": 81,
+        "a small unfinished song": 42,
+        "the shape of a hand": 22,
+        "the weight of a promise": 19,
+        "the warmth of a pocket": 18
+      },
+      "turn": {
+        "I thought that leaving would be louder.": 72,
+        "Perhaps this is how a place forgives.": 67,
+        "I stay until my hurry comes apart.": 64,
+        "For once, I have nothing to ask.": 53,
+        "I came here to leave something behind.": 44
+      },
+      "return_action": {
+        "has learned to wait": 88,
+        "stays when I turn away": 71,
+        "holds the silence open": 59,
+        "lets the distance settle": 57,
+        "keeps its small vigil": 25
+      }
+    }
+  }
+}

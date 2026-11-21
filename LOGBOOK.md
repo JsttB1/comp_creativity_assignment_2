@@ -1,6 +1,6 @@
 # Small Weather - development logbook
 
-This is a factual project log, not the assignment report or a claim about the student's personal experiences. Work below was carried out with Codex assistance on 12 November 2026. The user requested that the report be left unwritten.
+This is a factual project log, not the assignment report or a claim about the student's personal experiences. Sections 1-8 were carried out with Codex assistance on 12 November 2026; section 9 (report) with Claude assistance on 20 November 2026.
 
 ## 1. Initial idea and inspiring set
 
@@ -89,3 +89,9 @@ All six unit tests passed under both Python 3.15.2 and Python 3.12.10. The three
 Both ZIPs passed integrity checks. The extracted source ran with Python site-packages disabled and reproduced all three selected poems, confirming that the generator requires only the standard library. Using the optional presentation dependencies, the extracted source rebuilt a byte-identical anthology PDF. The presentation archive was checked for three illustrations and the complete text of every poem.
 
 Delivered files are `output/zips/Small_Weather_Source.zip`, `output/zips/Small_Weather_Presentation.zip`, and the preview `output/pdf/Small_Weather_Anthology.pdf`. No report was created, in accordance with the user's instruction. The report/template requirement remains a separate, deferred assignment item.
+
+## 9. Report and supplementary analysis - 20 November 2026
+
+The report was written in LaTeX using a local reconstruction of the ICCC style, because the official author kit could not be downloaded in the build environment. It compiles to four pages including references.
+
+While preparing it, two further measurements were added (`scripts/selection_bias.py`, `evaluation/selection_bias.json`). First, 20,000 raw candidates per theme produced no validator failures: the grammar satisfies the mechanical rules by construction, so generate-and-test reduces to ranking. Second, comparing phrase choices across 300 poems shows the 48-candidate selector favours short phrases: "an unfinished goodbye" fills the memory slot 118 times against a uniform expectation of 50, and "has learned to wait" becomes the most common return action. This explains the loss of line diversity in section 6 and is discussed in the report's evaluation reflection.
